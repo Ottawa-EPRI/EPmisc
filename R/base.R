@@ -8,6 +8,7 @@
 #'
 #' @seealso \code{\link{base::droplevels}}
 #'
+#' @export
 droplevels <- function(x, ...) {
   if (is.factor(x)) {
     if (Hmisc::label(x) != '') {
