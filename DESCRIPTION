@@ -1,12 +1,13 @@
 Package: EPmisc
-Title: Misc programming convenience, model and output functions. 
-Version: 0.0.1
+Title: Misc programming convenience, model and output functions.
+Version: 0.0.2
 Authors@R: person("Dejan", "Pavlic", email = "dpavlic@irpe-epri.ca", role = c("aut", "cre"))
-Description: A collection of functions to make life easier. 
+Description: A collection of functions to make life easier.
 Depends:
     R (>= 3.3.0)
-License: BSD 
+License: BSD
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 5.0.1
-Imports: sandwich (>= 2.3-4)
+Imports: sandwich (>= 2.3-4),
+    Hmisc(>= 3.17-4)
