@@ -6,7 +6,7 @@
 #'
 #' @param x an object from which to drop unsued factor levels.
 #'
-#' @seealso \code{\link[base]{base::droplevels}}
+#' @seealso \code{\link[base]{droplevels}}
 #'
 #' @export
 droplevels <- function(x, ...) {

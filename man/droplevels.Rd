@@ -15,6 +15,6 @@ commonly, from factors in a data frame. Unlike the base function, droplevels
 will preserve labels.
 }
 \seealso{
-\code{\link[base]{base::droplevels}}
+\code{\link[base]{droplevels}}
 }
 
