@@ -9,6 +9,7 @@
 #' @seealso \code{\link[base]{droplevels}}
 #'
 #' @export
+#'
 droplevels <- function(x, ...) {
   if (is.factor(x)) {
     if (Hmisc::label(x) != '') {
@@ -24,4 +25,73 @@ droplevels <- function(x, ...) {
     return(x)
   }
   base::droplevels(x, ...)
+}
+
+#' +
+#'
+#' Same as the base '+' arithmetic operator, with the exception that it
+#' overloads it, allowing concatenation of character vectors. Note that there is
+#' no type coercion. The function will throw an error if character is mixed with
+#' other types.
+#'
+#' @param x The first vector to call the '+' operator on.
+#' @param y The second vector to call the '+' operator on.
+#'
+#' @seealso \code{\link[base]{Arithmetic}}
+#'
+#' @export
+`+` <- function (x, y) UseMethod('+')
+`+.default` <- function (x, y) .Primitive('+')(x, y)
+`+.character` <- function(x, y) {
+  if (!is.character(y))
+    stop('Non-character argument to paste operator')
+  if (length(x) == length(y))
+    paste(x, y, sep = '')
+  else
+    stop('Character vectors are different lengths.')
+}
+
+#' ifelse
+#'
+#' ifelse returns a value with the same shape as test which is filled with
+#' elements selected from either yes or no depending on whether the element of
+#' test is TRUE or FALSE. Unlike the base function, ifelse optionally allows
+#' preservation of attributes, either from the yes or no parameters.
+#'
+#' @param test an object which can be coerced to logical mode.
+#' @param yes return values for true elements of test.
+#' @param no return values for false elements of test.
+#' @param attributes Whether to optionally preserve attributes, specifically
+#'        levels and class. Preserved attributes can be "default", which mimics
+#'        the default base ifelse behaviour (and is the default), or to preserve
+#'        the attributes of either "test", "yes" or "no".
+#'
+#' @seealso \code{\link[base]{ifelse}}
+#'
+#' @export
+ifelse <- function(test, yes, no, attributes = 'default') {
+  if (attributes == 'default') {
+    base::ifelse(test, yes, no)
+  } else {
+    attrs <- switch(EXPR = attributes, 'test' = test, 'yes'  = yes, 'no' = no)
+    keepClass <- class(attrs)
+    keepLevels <- levels(attrs)
+    keepClassIsFactor <- 'factor' %in% keepClass
+
+    # First call normal ifelse.
+    returned <- base::ifelse(test, yes, no)
+
+    # Now keep class of the chosen parameter, and factor levels, if applicable.
+    if (keepClassIsFactor) {
+      returned <- as.factor(returned)
+      levels(returned) <- keepLevels
+
+      if (length(keepClass) > 1)
+        class(returned) <- keepClass
+    } else {
+      class(returned) <- keepClass
+    }
+
+    returned
+  }
 }
