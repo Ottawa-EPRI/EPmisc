@@ -17,4 +17,3 @@ will preserve labels.
 \seealso{
 \code{\link[base]{droplevels}}
 }
-

@@ -18,4 +18,3 @@ iris$setosa <- ifelse(iris$Species == 'setosa', 1, 0)
 lmModel <- lm2(setosa ~ Sepal.Length + Sepal.Width, data = iris)
 
 }
-

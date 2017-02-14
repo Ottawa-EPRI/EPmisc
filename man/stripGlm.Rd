@@ -21,4 +21,3 @@ iris$setosa <- ifelse(iris$Species == 'setosa', 1, 0)
 sglm <- stripGlm(glm(setosa ~ Sepal.Length + Sepal.Width, data = iris))
 
 }
-

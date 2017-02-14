@@ -30,4 +30,3 @@ levelNA(df, checkNA = FALSE)
 levelNA(df, except = '^(a|b)'
 
 }
-
