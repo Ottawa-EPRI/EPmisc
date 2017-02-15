@@ -20,10 +20,16 @@
 #'
 #' @export
 #'
-droplevels <- function(x, ...) UseMethod('EPdroplevels')
-EPdroplevels.default <- function(x, ...) base::droplevels(x, ...)
-EPdroplevels.labelled <- function(x, ...) .droplevels(x, ...)
-EPdroplevels.data.frame <- function(x, except = NULL, ...) {
+droplevels <- function(x, ...) UseMethod('droplevelsAttr')
+
+#' @export
+droplevelsAttr.default <- function(x, ...) base::droplevels(x, ...)
+
+#' @export
+droplevelsAttr.labelled <- function(x, ...) .droplevels(x, ...)
+
+#' @export
+droplevelsAttr.data.frame <- function(x, except = NULL, ...) {
   ix <- vapply(x, is.factor, NA)
   if (!is.null(except))
     ix[except] <- FALSE
@@ -44,9 +50,13 @@ EPdroplevels.data.frame <- function(x, except = NULL, ...) {
 #' @seealso \code{\link[base]{Arithmetic}}
 #'
 #' @export
-`+` <- function (x, y) UseMethod('+')
-`+.default` <- function (x, y) .Primitive('+')(x, y)
-`+.character` <- function(x, y) {
+`+` <- function(x, ...) UseMethod('sumOperatorOver')
+
+#' @export
+sumOperatorOver.default <- function(x, y) .Primitive('+')(x, y)
+
+#' @export
+sumOperatorOver.character <- function(x, y) {
   if (!is.character(y))
     stop('Non-character argument to paste operator')
   if (length(x) == length(y))
@@ -59,7 +69,7 @@ EPdroplevels.data.frame <- function(x, except = NULL, ...) {
 #'
 #' ifelse returns a value with the same shape as test which is filled with
 #' elements selected from either yes or no depending on whether the element of
-#' test is TRUE or FALSE. Unlike the base function, ifelse optionally allows
+#' test i or FALSE. Unlike the base function, ifelse optionally allows
 #' preservation of attributes, either from the yes or no parameters.
 #'
 #' @param test an object which can be coerced to logical mode.
