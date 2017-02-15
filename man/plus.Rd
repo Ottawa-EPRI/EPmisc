@@ -4,7 +4,7 @@
 \alias{+}
 \title{+}
 \usage{
-"+"(x, y)
+"+"(x, ...)
 }
 \arguments{
 \item{x}{The first vector to call the '+' operator on.}

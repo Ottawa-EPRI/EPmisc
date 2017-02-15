@@ -21,7 +21,7 @@ the attributes of either "test", "yes" or "no".}
 \description{
 ifelse returns a value with the same shape as test which is filled with
 elements selected from either yes or no depending on whether the element of
-test is TRUE or FALSE. Unlike the base function, ifelse optionally allows
+test i or FALSE. Unlike the base function, ifelse optionally allows
 preservation of attributes, either from the yes or no parameters.
 }
 \seealso{

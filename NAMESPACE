@@ -2,7 +2,12 @@
 
 export("+")
 export(droplevels)
+export(droplevelsAttr.data.frame)
+export(droplevelsAttr.default)
+export(droplevelsAttr.labelled)
 export(ifelse)
 export(levelNA)
 export(lm2)
 export(stripGlm)
+export(sumOperatorOver.character)
+export(sumOperatorOver.default)
