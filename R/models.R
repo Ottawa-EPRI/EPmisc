@@ -52,6 +52,12 @@ stripGlm = function(cm) {
 #' @export
 #'
 lm2 <- function(..., robust.se = TRUE) {
+  # Kill if sandwich is not installed.
+  if (!requireNamespace('sandwich', quietly = TRUE)) {
+    stop("Sandwich package needed to use lm2. Please install it",
+         call. = FALSE)
+  }
+
   model <- lm(...)
 
   if (robust.se) {
