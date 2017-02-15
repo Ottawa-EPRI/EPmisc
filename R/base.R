@@ -1,3 +1,13 @@
+# Helper function which drops levels while preserving attributes.
+.droplevels <- function(x, ...) {
+  oldAttrs <- attributes(x)
+  x <- base::droplevels(x, ...)
+  newLevels <- attr(x, 'levels')
+  attributes(x) <- oldAttrs
+  attr(x, 'levels') <- newLevels
+  x
+}
+
 #' droplevels
 #'
 #' The function dropevels is used to drop unused levels from a factor or, more
@@ -10,21 +20,15 @@
 #'
 #' @export
 #'
-droplevels <- function(x, ...) {
-  if (is.factor(x)) {
-    if (Hmisc::label(x) != '') {
-      tmp <- label(x)
-      x <- base::droplevels(x, ...)
-      label(x) <- tmp
-      return(x)
-    }
-  } else if (is.data.frame(x)) {
-    tmp <- lapply(names(Hmisc::label(x)), function(y) label(x)[y])
-    x <- base::droplevels(x, ...)
-    label(x) <- tmp
-    return(x)
-  }
-  base::droplevels(x, ...)
+droplevels <- function(x, ...) UseMethod('EPdroplevels')
+EPdroplevels.default <- function(x, ...) base::droplevels(x, ...)
+EPdroplevels.labelled <- function(x, ...) .droplevels(x, ...)
+EPdroplevels.data.frame <- function(x, except = NULL, ...) {
+  ix <- vapply(x, is.factor, NA)
+  if (!is.null(except))
+    ix[except] <- FALSE
+  x[ix] <- lapply(x[ix], droplevels)
+  x
 }
 
 #' +
