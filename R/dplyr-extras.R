@@ -21,7 +21,6 @@
 
 mutateX <- function(.data, ..., .varX = 'X') {
   modQuos <- rlang::quos(...)
-  browser()
 
   for (qs in seq_along(modQuos)) {
     modQuos[[qs]][[2]] <- dplyr:::expr_substitute(
