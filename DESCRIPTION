@@ -1,6 +1,6 @@
 Package: EPmisc
 Title: Misc programming convenience, model and output functions.
-Version: 0.1.1
+Version: 0.2.0
 Authors@R: person("Dejan", "Pavlic", email = "dpavlic@irpe-epri.ca", role = c("aut", "cre"))
 Description: A collection of functions to make life easier.
 Depends:

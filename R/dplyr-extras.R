@@ -30,3 +30,30 @@ mutateX <- function(.data, ..., .varX = 'X') {
 
   dplyr::mutate(.data, !!!modQuos)
 }
+
+#' Display filtered data frame.
+#'
+#' \code{Vf} displays a data frame using the View function but allows conditions
+#' on the data by using \code{dplyr::filter} and displays the conditions in the
+#' windows title.
+#'
+#' @param df A data frame.
+#' @param ... Conditions on the data frame. Comma-separated conditions are
+#' joined by \code{&}
+#' @return Invisible \code{NULL}. Result is displayed in a window.
+#'
+#' @examples
+#' Vf(iris, Sepal.Width >= 4)
+#' Vf(iris, Sepal.Length > 6, Sepal.Width < 4)
+#' @export
+
+Vf <- function(df, ...){
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop("dplyr needed for this function to work. Please install it.",
+         call. = FALSE)
+  }
+  args <- eval(substitute(alist(...)))
+  View(dplyr::filter(df, ...),
+       title = paste(unlist(lapply(args, deparse)), collapse = ' & '))
+}
+
