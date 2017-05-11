@@ -54,6 +54,9 @@ Vf <- function(df, ...){
   }
   args <- eval(substitute(alist(...)))
   View(dplyr::filter(df, ...),
-       title = paste(unlist(lapply(args, deparse)), collapse = ' & '))
+       title = paste0(
+         deparse(substitute(df)), ": ",
+         paste(unlist(lapply(args, deparse)), collapse = ' & '))
+       )
 }
 
