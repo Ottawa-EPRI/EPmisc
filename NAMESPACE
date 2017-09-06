@@ -2,6 +2,7 @@
 
 export("+")
 export(Vf)
+export(Vs)
 export(droplevels)
 export(droplevelsAttr.data.frame)
 export(droplevelsAttr.default)

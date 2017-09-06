@@ -60,3 +60,33 @@ Vf <- function(df, ...){
        )
 }
 
+#' Display selected elements from a data frame.
+#'
+#' \code{Vs} displays a data frame using the View function but allows selecting
+#' variables from the data using \code{dplyr::select} and displays the
+#' number of selected variables in the windows title.
+#'
+#' @param df A data frame.
+#' @param ... Names the variables to be selected.
+#'
+#' @return Invisible \code{NULL}. Result is displayed in a window.
+#'
+#' @examples
+#' Vs(iris, Sepal.Width)
+#' Vs(iris, Sepal.Length, Sepal.Width)
+#' @export
+
+Vs <- function(df, ...) {
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop("dplyr needed for this function to work. Please install it.",
+         call. = FALSE)
+  }
+  args <- eval(substitute(alist(...)))
+  nargs <- length(unique(unlist(lapply(args, deparse))))
+  if (nargs == 0) {
+     View(df, title = paste0(deparse(substitute(df)), ": ", 'all selected'))
+  } else {
+    View(dplyr::select(df, ...),
+         title = paste0(deparse(substitute(df)), ": ", nargs, ' selected'))
+  }
+}
