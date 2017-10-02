@@ -20,6 +20,8 @@
 #'
 
 mutateX <- function(.data, ..., .varX = 'X') {
+  require_package('dplyr')
+
   modQuos <- rlang::quos(...)
 
   for (qs in seq_along(modQuos)) {
@@ -48,10 +50,8 @@ mutateX <- function(.data, ..., .varX = 'X') {
 #' @export
 
 Vf <- function(df, ...){
-  if (!requireNamespace("dplyr", quietly = TRUE)) {
-    stop("dplyr needed for this function to work. Please install it.",
-         call. = FALSE)
-  }
+  require_package('dplyr')
+
   args <- eval(substitute(alist(...)))
   View(dplyr::filter(df, ...),
        title = paste0(
@@ -77,10 +77,8 @@ Vf <- function(df, ...){
 #' @export
 
 Vs <- function(df, ...) {
-  if (!requireNamespace("dplyr", quietly = TRUE)) {
-    stop("dplyr needed for this function to work. Please install it.",
-         call. = FALSE)
-  }
+  require_package('dplyr')
+
   args <- eval(substitute(alist(...)))
   nargs <- length(unique(unlist(lapply(args, deparse))))
   if (nargs == 0) {
