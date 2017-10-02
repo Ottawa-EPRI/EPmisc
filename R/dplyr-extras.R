@@ -35,7 +35,7 @@ mutateX <- function(.data, ..., .varX = 'X') {
 
 #' Display filtered data frame.
 #'
-#' \code{Vf} displays a data frame using the View function but allows conditions
+#' \code{vf} displays a data frame using the View function but allows conditions
 #' on the data by using \code{dplyr::filter} and displays the conditions in the
 #' windows title.
 #'
@@ -45,11 +45,11 @@ mutateX <- function(.data, ..., .varX = 'X') {
 #' @return Invisible \code{NULL}. Result is displayed in a window.
 #'
 #' @examples
-#' Vf(iris, Sepal.Width >= 4)
-#' Vf(iris, Sepal.Length > 6, Sepal.Width < 4)
+#' vf(iris, Sepal.Width >= 4)
+#' vf(iris, Sepal.Length > 6, Sepal.Width < 4)
 #' @export
 
-Vf <- function(df, ...){
+vf <- function(df, ...){
   require_package('dplyr')
 
   args <- eval(substitute(alist(...)))
@@ -62,7 +62,7 @@ Vf <- function(df, ...){
 
 #' Display selected elements from a data frame.
 #'
-#' \code{Vs} displays a data frame using the View function but allows selecting
+#' \code{vs} displays a data frame using the View function but allows selecting
 #' variables from the data using \code{dplyr::select} and displays the
 #' number of selected variables in the windows title.
 #'
@@ -72,11 +72,11 @@ Vf <- function(df, ...){
 #' @return Invisible \code{NULL}. Result is displayed in a window.
 #'
 #' @examples
-#' Vs(iris, Sepal.Width)
-#' Vs(iris, Sepal.Length, Sepal.Width)
+#' vs(iris, Sepal.Width)
+#' vs(iris, Sepal.Length, Sepal.Width)
 #' @export
 
-Vs <- function(df, ...) {
+vs <- function(df, ...) {
   require_package('dplyr')
 
   args <- eval(substitute(alist(...)))
