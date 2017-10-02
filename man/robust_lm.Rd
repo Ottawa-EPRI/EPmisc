@@ -10,7 +10,10 @@ robust_lm(..., robust.se = TRUE)
 \item{robust.se}{Whether to use robust standard errors.}
 }
 \description{
-Estimate an lm model but uses robust standard errors by default.
+Estimates an lm model but uses robust standard errors by default. Note that
+for functions for which a robust_lm method is not defined (which is, in
+effect all of them with the exception of broom's tidy), the fallback class is
+lm, which will yield standard (non-robust) standard errors.
 }
 \examples{
 data(iris)
