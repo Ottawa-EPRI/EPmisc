@@ -64,7 +64,9 @@ robust_lm <- function(..., robust.se = TRUE) {
   model <- lm(...)
 
   if (robust.se) {
-    ctest <- lmtest::coeftest(model, vcov = vcovHC(model, type = 'HC'))
+    ctest <- lmtest::coeftest(
+      model, vcov = sandwich::vcovHC(model, type = 'HC')
+    )
     model$robSE <- ctest[, 2]
     model$robP <- ctest[, 4]
   }
