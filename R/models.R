@@ -40,7 +40,10 @@ strip_glm <- function(cm) {
 
 #' robust_lm
 #'
-#' Estimate an lm model but uses robust standard errors by default.
+#' Estimates an lm model but uses robust standard errors by default. Note that
+#' for functions for which a robust_lm method is not defined (which is, in
+#' effect all of them with the exception of broom's tidy), the fallback class is
+#' lm, which will yield standard (non-robust) standard errors.
 #'
 #' @param robust.se Whether to use robust standard errors.
 #'
@@ -71,5 +74,37 @@ robust_lm <- function(..., robust.se = TRUE) {
     model$robP <- ctest[, 4]
   }
 
+  class(model) <- c('robust_lm', 'lm')
   model
+}
+
+#' @export
+tidy.robust_lm <- function(
+  x,
+  conf.int = FALSE,
+  conf.level = 0.95,
+  exponentiate = FALSE,
+  quick = FALSE,
+  ...
+) {
+  require_package('broom')
+
+  if (quick) {
+    co <- stats::coef(x)
+    ret <- data.frame(term = names(co), estimate = unname(co))
+    return(process_lm(ret, x, conf.int = FALSE, exponentiate = exponentiate))
+  }
+
+  s <- summary(x)
+  ret <- broom:::tidy.summary.lm(s)
+  process <- broom:::process_lm(
+    ret,
+    x,
+    conf.int = conf.int,
+    conf.level = conf.level,
+    exponentiate = exponentiate
+  )
+  process$std.error <- x$robSE
+  process$p.value <- x$robP
+  process
 }
