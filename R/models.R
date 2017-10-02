@@ -1,4 +1,4 @@
-#' Strip glm model.
+#' strip_glm
 #'
 #' Strip the glm model, leaving only the necessary bits for doing a predict.
 #'
@@ -9,11 +9,11 @@
 #' @examples
 #' data(iris)
 #' iris$setosa <- ifelse(iris$Species == 'setosa', 1, 0)
-#' sglm <- stripGlm(glm(setosa ~ Sepal.Length + Sepal.Width, data = iris))
+#' sglm <- strip_glm(glm(setosa ~ Sepal.Length + Sepal.Width, data = iris))
 #'
 #' @export
 #'
-stripGlm <- function(cm) {
+strip_glm <- function(cm) {
   cm$y <- c()
   cm$model <- c()
 
@@ -38,7 +38,7 @@ stripGlm <- function(cm) {
   cm
 }
 
-#' lm model with robust standard errors.
+#' robust_lm
 #'
 #' Estimate an lm model but uses robust standard errors by default.
 #'
@@ -47,16 +47,18 @@ stripGlm <- function(cm) {
 #' @examples
 #' data(iris)
 #' iris$setosa <- ifelse(iris$Species == 'setosa', 1, 0)
-#' lmModel <- lm2(setosa ~ Sepal.Length + Sepal.Width, data = iris)
+#' lm_model <- robust_lm(setosa ~ Sepal.Length + Sepal.Width, data = iris)
 #'
 #' @export
 #'
-lm2 <- function(..., robust.se = TRUE) {
+robust_lm <- function(..., robust.se = TRUE) {
   # Kill if sandwich or lmtest are not installed.
   if (!requireNamespace('sandwich', quietly = TRUE)|
       !requireNamespace('lmtest', quietly = TRUE)) {
-    stop("Sandwich and lmtest are needed to use lm2. Please install them.",
-         call. = FALSE)
+    stop(
+      "Sandwich and lmtest are needed to use robust_lm. Please install them.",
+      call. = FALSE
+    )
   }
 
   model <- lm(...)
