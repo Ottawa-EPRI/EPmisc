@@ -108,7 +108,9 @@ tidy.robust_lm <- function(
   if (quick) {
     co <- stats::coef(x)
     ret <- data.frame(term = names(co), estimate = unname(co))
-    return(process_lm(ret, x, conf.int = FALSE, exponentiate = exponentiate))
+    return(
+      broom:::process_lm(ret, x, conf.int = FALSE, exponentiate = exponentiate)
+    )
   }
 
   s <- summary(x)
