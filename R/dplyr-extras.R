@@ -53,7 +53,7 @@ mutateX <- function(.data, ..., .varX = 'X') {
 #'
 #' @export
 
-vf <- function(df, ...){
+vf <- function(df, ...) {
   args <- eval(substitute(alist(...)))
   View(dplyr::filter(df, ...),
        title = paste0(
