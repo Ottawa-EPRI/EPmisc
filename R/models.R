@@ -94,7 +94,7 @@ robust_lm <- function(...) {
   model
 }
 
-#' @export
+#' @importFrom broom tidy
 tidy.robust_lm <- function(
   x,
   conf.int = FALSE,
