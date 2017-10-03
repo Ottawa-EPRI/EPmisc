@@ -11,8 +11,11 @@
 #' @return An object of the same class as .data.
 #'
 #' @examples
+#' data <- data.frame(some_var = 1:100)
 #' mutateX(data, some_var = ifelse(X > 10, 10, X), noChange = some_var + 1)
 #' # Or in vanilla mutate:
+#' library(dplyr)
+#' data <- data.frame(some_var = 1:100)
 #' mutate(data, some_var = ifelse(some_var > 10, 10, some_var),
 #'        noChange = some_var + 1)
 #'
@@ -45,8 +48,11 @@ mutateX <- function(.data, ..., .varX = 'X') {
 #' @return Invisible \code{NULL}. Result is displayed in a window.
 #'
 #' @examples
+#' \dontrun{
 #' vf(iris, Sepal.Width >= 4)
 #' vf(iris, Sepal.Length > 6, Sepal.Width < 4)
+#' }
+#'
 #' @export
 
 vf <- function(df, ...){
@@ -72,8 +78,11 @@ vf <- function(df, ...){
 #' @return Invisible \code{NULL}. Result is displayed in a window.
 #'
 #' @examples
+#' \dontrun{
 #' vs(iris, Sepal.Width)
 #' vs(iris, Sepal.Length, Sepal.Width)
+#' }
+#'
 #' @export
 
 vs <- function(df, ...) {
