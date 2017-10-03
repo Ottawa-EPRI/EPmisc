@@ -23,8 +23,6 @@
 #'
 
 mutateX <- function(.data, ..., .varX = 'X') {
-  require_package('dplyr')
-
   modQuos <- rlang::quos(...)
 
   for (qs in seq_along(modQuos)) {
@@ -56,8 +54,6 @@ mutateX <- function(.data, ..., .varX = 'X') {
 #' @export
 
 vf <- function(df, ...){
-  require_package('dplyr')
-
   args <- eval(substitute(alist(...)))
   View(dplyr::filter(df, ...),
        title = paste0(
@@ -86,8 +82,6 @@ vf <- function(df, ...){
 #' @export
 
 vs <- function(df, ...) {
-  require_package('dplyr')
-
   args <- eval(substitute(alist(...)))
   nargs <- length(unique(unlist(lapply(args, deparse))))
   if (nargs == 0) {
