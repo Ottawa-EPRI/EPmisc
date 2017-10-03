@@ -81,25 +81,14 @@ strip_glm <- function(cm) {
 #'
 #' @export
 #'
-robust_lm <- function(..., robust.se = TRUE) {
-  # Kill if sandwich or lmtest are not installed.
-  if (!requireNamespace('sandwich', quietly = TRUE)|
-      !requireNamespace('lmtest', quietly = TRUE)) {
-    stop(
-      "Sandwich and lmtest are needed to use robust_lm. Please install them.",
-      call. = FALSE
-    )
-  }
-
+robust_lm <- function(...) {
   model <- lm(...)
 
-  if (robust.se) {
-    ctest <- lmtest::coeftest(
-      model, vcov = sandwich::vcovHC(model, type = 'HC')
-    )
-    model$robSE <- ctest[, 2]
-    model$robP <- ctest[, 4]
-  }
+  ctest <- lmtest::coeftest(
+    model, vcov = sandwich::vcovHC(model, type = 'HC')
+  )
+  model$robSE <- ctest[, 2]
+  model$robP <- ctest[, 4]
 
   class(model) <- c('robust_lm', 'lm')
   model
