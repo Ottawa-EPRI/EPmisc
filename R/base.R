@@ -1,75 +1,59 @@
 # Helper function which drops levels while preserving attributes.
 .droplevels <- function(x, ...) {
   oldAttrs <- attributes(x)
-  x <- base::droplevels(x, ...)
+  x <- droplevels(x, ...)
   newLevels <- attr(x, 'levels')
   attributes(x) <- oldAttrs
   attr(x, 'levels') <- newLevels
   x
 }
 
-#' droplevels
+#' drop_levels
 #'
-#' The function dropevels is used to drop unused levels from a factor or, more
-#' commonly, from factors in a data frame. Unlike the base function, droplevels
+#' The function drop_levels is used to drop unused levels from a factor or, more
+#' commonly, from factors in a data frame. Unlike the base function, drop_levels
 #' will preserve labels.
 #'
 #' @param x an object from which to drop unsued factor levels.
+#'
+#' @param ... further arguments passed to base droplevels.
 #'
 #' @seealso \code{\link[base]{droplevels}}
 #'
 #' @export
 #'
-droplevels <- function(x, ...) UseMethod('droplevelsAttr')
+drop_levels <- function(x, ...) UseMethod('drop_levels')
 
-#' @export
-droplevelsAttr.default <- function(x, ...) base::droplevels(x, ...)
-
-#' @export
-droplevelsAttr.labelled <- function(x, ...) .droplevels(x, ...)
-
-#' @export
-droplevelsAttr.data.frame <- function(x, except = NULL, ...) {
+drop_levels.default <- function(x, ...) droplevels(x, ...)
+drop_levels.labelled <- function(x, ...) .droplevels(x, ...)
+drop_levels.data.frame <- function(x, except = NULL, ...) {
   ix <- vapply(x, is.factor, NA)
   if (!is.null(except))
     ix[except] <- FALSE
-  x[ix] <- lapply(x[ix], droplevels)
+  x[ix] <- lapply(x[ix], drop_levels)
   x
 }
 
-#' +
+#' \%+\%
 #'
-#' Same as the base '+' arithmetic operator, with the exception that it
-#' overloads it, allowing concatenation of character vectors. Note that there is
-#' no type coercion. The function will throw an error if character is mixed with
-#' other types.
+#' Allows concatenation of character vectors. A short form of basic paste0
+#' functionality.
 #'
-#' @param x The first vector to call the '+' operator on.
-#' @param y The second vector to call the '+' operator on.
+#' @param x The first vector to call the operator on.
+#' @param y The second vector to call the operator on.
 #'
 #' @seealso \code{\link[base]{Arithmetic}}
 #'
 #' @export
-`+` <- function(x, ...) UseMethod('sumOperatorOver')
-
-#' @export
-sumOperatorOver.default <- function(x, y) .Primitive('+')(x, y)
-
-#' @export
-sumOperatorOver.character <- function(x, y) {
-  if (!is.character(y))
-    stop('Non-character argument to paste operator')
-  if (length(x) == length(y))
-    paste(x, y, sep = '')
-  else
-    stop('Character vectors are different lengths.')
+'%+%' <- function(x, y) {
+  paste0(x, y)
 }
 
-#' ifelse
+#' ifel
 #'
-#' ifelse returns a value with the same shape as test which is filled with
+#' ifel returns a value with the same shape as test which is filled with
 #' elements selected from either yes or no depending on whether the element of
-#' test i or FALSE. Unlike the base function, ifelse optionally allows
+#' test is TRUE or FALSE. Unlike the base function, ifel optionally allows
 #' preservation of attributes, either from the yes or no parameters.
 #'
 #' @param test an object which can be coerced to logical mode.
@@ -83,9 +67,9 @@ sumOperatorOver.character <- function(x, y) {
 #' @seealso \code{\link[base]{ifelse}}
 #'
 #' @export
-ifelse <- function(test, yes, no, attributes = 'default') {
+ifel <- function(test, yes, no, attributes = 'default') {
   if (attributes == 'default') {
-    base::ifelse(test, yes, no)
+    ifelse(test, yes, no)
   } else {
     attrs <- switch(EXPR = attributes, 'test' = test, 'yes'  = yes, 'no' = no)
     keepClass <- class(attrs)
@@ -93,7 +77,7 @@ ifelse <- function(test, yes, no, attributes = 'default') {
     keepClassIsFactor <- 'factor' %in% keepClass
 
     # First call normal ifelse.
-    returned <- base::ifelse(test, yes, no)
+    returned <- ifelse(test, yes, no)
 
     # Now keep class of the chosen parameter, and factor levels, if applicable.
     if (keepClassIsFactor) {
