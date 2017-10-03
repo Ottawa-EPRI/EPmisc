@@ -6,8 +6,12 @@
 #'
 #' @return Updated formula.
 #'
+#' @param original_formula the original formula to use.
+#'
+#' @param addition Additions / removals / changes to the formula.
+#'
 #' @examples
-#' Add Sepal.Width to model2.
+#' ## Add Sepal.Width to model2.
 #' model <- setosa ~ Sepal.Length
 #' ## Add Sepal.Width to the existing model.
 #' model2 <- model %~% ~ . + Sepal.Width
@@ -68,7 +72,7 @@ strip_glm <- function(cm) {
 #' effect all of them with the exception of broom's tidy), the fallback class is
 #' lm, which will yield standard (non-robust) standard errors.
 #'
-#' @param robust.se Whether to use robust standard errors.
+#' @param ... Arguments to pass to lm.
 #'
 #' @examples
 #' data(iris)
