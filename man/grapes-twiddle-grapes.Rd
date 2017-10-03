@@ -6,6 +6,11 @@
 \usage{
 original_formula \%~\% addition
 }
+\arguments{
+\item{original_formula}{the original formula to use.}
+
+\item{addition}{Additions / removals / changes to the formula.}
+}
 \value{
 Updated formula.
 }
@@ -15,7 +20,7 @@ In the context of %~% and update.formula, the  . means ‘what was previously
 in this part of the formula’.
 }
 \examples{
-Add Sepal.Width to model2.
+## Add Sepal.Width to model2.
 model <- setosa ~ Sepal.Length
 ## Add Sepal.Width to the existing model.
 model2 <- model \%~\% ~ . + Sepal.Width

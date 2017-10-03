@@ -4,10 +4,10 @@
 \alias{robust_lm}
 \title{robust_lm}
 \usage{
-robust_lm(..., robust.se = TRUE)
+robust_lm(...)
 }
 \arguments{
-\item{robust.se}{Whether to use robust standard errors.}
+\item{...}{Arguments to pass to lm.}
 }
 \description{
 Estimates an lm model but uses robust standard errors by default. Note that

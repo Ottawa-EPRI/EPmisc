@@ -20,8 +20,11 @@ An object of the same class as .data.
 mutate which replaces X with the name of the assigned column.
 }
 \examples{
+data <- data.frame(some_var = 1:100)
 mutateX(data, some_var = ifelse(X > 10, 10, X), noChange = some_var + 1)
 # Or in vanilla mutate:
+library(dplyr)
+data <- data.frame(some_var = 1:100)
 mutate(data, some_var = ifelse(some_var > 10, 10, some_var),
        noChange = some_var + 1)
 

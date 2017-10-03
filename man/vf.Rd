@@ -21,6 +21,9 @@ on the data by using \code{dplyr::filter} and displays the conditions in the
 windows title.
 }
 \examples{
+\dontrun{
 vf(iris, Sepal.Width >= 4)
 vf(iris, Sepal.Length > 6, Sepal.Width < 4)
+}
+
 }

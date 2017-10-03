@@ -20,6 +20,9 @@ variables from the data using \code{dplyr::select} and displays the
 number of selected variables in the windows title.
 }
 \examples{
+\dontrun{
 vs(iris, Sepal.Width)
 vs(iris, Sepal.Length, Sepal.Width)
+}
+
 }
