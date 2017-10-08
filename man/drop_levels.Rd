@@ -2,9 +2,18 @@
 % Please edit documentation in R/base.R
 \name{drop_levels}
 \alias{drop_levels}
+\alias{drop_levels.default}
+\alias{drop_levels.labelled}
+\alias{drop_levels.data.frame}
 \title{drop_levels}
 \usage{
 drop_levels(x, ...)
+
+\method{drop_levels}{default}(x, ...)
+
+\method{drop_levels}{labelled}(x, ...)
+
+\method{drop_levels}{data.frame}(x, except = NULL, ...)
 }
 \arguments{
 \item{x}{an object from which to drop unsued factor levels.}

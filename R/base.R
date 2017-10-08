@@ -1,13 +1,3 @@
-# Helper function which drops levels while preserving attributes.
-.droplevels <- function(x, ...) {
-  oldAttrs <- attributes(x)
-  x <- droplevels(x, ...)
-  newLevels <- attr(x, 'levels')
-  attributes(x) <- oldAttrs
-  attr(x, 'levels') <- newLevels
-  x
-}
-
 #' drop_levels
 #'
 #' The function drop_levels is used to drop unused levels from a factor or, more
@@ -22,10 +12,30 @@
 #'
 #' @export
 #'
-drop_levels <- function(x, ...) UseMethod('drop_levels')
+drop_levels <- function(x, ...) {
+  UseMethod('drop_levels')
+}
 
-drop_levels.default <- function(x, ...) droplevels(x, ...)
-drop_levels.labelled <- function(x, ...) .droplevels(x, ...)
+#' @rdname drop_levels
+#' @export
+drop_levels.default <- function(x, ...) {
+  droplevels(x, ...)
+}
+
+#' @rdname drop_levels
+#' @export
+#'
+drop_levels.labelled <- function(x, ...) {
+  oldAttrs <- attributes(x)
+  x <- droplevels(x, ...)
+  newLevels <- attr(x, 'levels')
+  attributes(x) <- oldAttrs
+  attr(x, 'levels') <- newLevels
+  x
+}
+
+#' @rdname drop_levels
+#' @export
 drop_levels.data.frame <- function(x, except = NULL, ...) {
   ix <- vapply(x, is.factor, NA)
   if (!is.null(except))
