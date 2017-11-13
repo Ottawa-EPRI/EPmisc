@@ -19,8 +19,6 @@
 #' ## the whole formula is consumed without evaluation.
 #' model3 <- model %~% (Sepal.Width ~ .)
 #' @export
-#'
-
 "%~%" <- function(original_formula, addition) {
   update(original_formula, addition)
 }
@@ -39,7 +37,6 @@
 #' sglm <- strip_glm(glm(setosa ~ Sepal.Length + Sepal.Width, data = iris))
 #'
 #' @export
-#'
 strip_glm <- function(cm) {
   cm$y <- c()
   cm$model <- c()
@@ -80,7 +77,6 @@ strip_glm <- function(cm) {
 #' lm_model <- robust_lm(setosa ~ Sepal.Length + Sepal.Width, data = iris)
 #'
 #' @export
-#'
 robust_lm <- function(...) {
   model <- lm(...)
 

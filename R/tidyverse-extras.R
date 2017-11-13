@@ -3,9 +3,7 @@
 #' mutate which replaces X with the name of the assigned column.
 #'
 #' @param .data A tbl.
-#'
 #' @param ... Name-value pairs of expressions.
-#'
 #' @param .varX What to use as a substitute.
 #'
 #' @return An object of the same class as .data.
@@ -20,8 +18,6 @@
 #'        noChange = some_var + 1)
 #'
 #' @export
-#'
-
 mutateX <- function(.data, ..., .varX = 'X') {
   modQuos <- rlang::quos(...)
 
@@ -44,7 +40,9 @@ mutateX <- function(.data, ..., .varX = 'X') {
 #' @param only A character vector restricting the set of levels to be dropped.
 #'   If supplied, only levels that have no entries and appear in this vector
 #'   will be removed.
+#'
 #' @seealso \code{\link[forcats]{fct_drop}}
+#'
 #' @examples
 #' f <- factor(c("a", "b"), levels = c("a", "b", "c"))
 #' f
@@ -53,6 +51,7 @@ mutateX <- function(.data, ..., .varX = 'X') {
 #' # Set only to restrict which levels to drop
 #' fct_drop_levels(f, only = "a")
 #' fct_drop_levels(f, only = "c")
+#'
 #' @export
 fct_drop_levels <- function(f, only) {
   attr(f, 'levels') <- attr(forcats::fct_drop(f, only), 'levels')
@@ -68,6 +67,7 @@ fct_drop_levels <- function(f, only) {
 #' @param df A data frame.
 #' @param ... Conditions on the data frame. Comma-separated conditions are
 #' joined by \code{&}
+#'
 #' @return Invisible \code{NULL}. Result is displayed in a window.
 #'
 #' @examples
@@ -77,7 +77,6 @@ fct_drop_levels <- function(f, only) {
 #' }
 #'
 #' @export
-
 vf <- function(df, ...) {
   args <- eval(substitute(alist(...)))
   View(dplyr::filter(df, ...),
@@ -105,7 +104,6 @@ vf <- function(df, ...) {
 #' }
 #'
 #' @export
-
 vs <- function(df, ...) {
   args <- eval(substitute(alist(...)))
   nargs <- length(unique(unlist(lapply(args, deparse))))

@@ -23,8 +23,6 @@ require_package <- function(package) {
 #' }
 #'
 #' @export
-#'
-
 key_value <- function(lst) {
   if (!(is.vector(lst) || class(lst) == 'list')) {
     stop('Input to key_value must be either vector or list.')
