@@ -34,6 +34,31 @@ mutateX <- function(.data, ..., .varX = 'X') {
   dplyr::mutate(.data, !!!modQuos)
 }
 
+#' Drop unused levels
+#'
+#' Wrapper around forcats drop_levels which will not modify or drop
+#' non-level attributes. Compared to `base::droplevels()` does not drop `NA`
+#' levels that have values.
+#'
+#' @param f A factor
+#' @param only A character vector restricting the set of levels to be dropped.
+#'   If supplied, only levels that have no entries and appear in this vector
+#'   will be removed.
+#' @seealso \code{\link[forcats]{fct_drop}}
+#' @examples
+#' f <- factor(c("a", "b"), levels = c("a", "b", "c"))
+#' f
+#' fct_drop_levels(f)
+#'
+#' # Set only to restrict which levels to drop
+#' fct_drop_levels(f, only = "a")
+#' fct_drop_levels(f, only = "c")
+#' @export
+fct_drop_levels <- function(f, only) {
+  attr(f, 'levels') <- attr(forcats::fct_drop(f, only), 'levels')
+  f
+}
+
 #' Display filtered data frame.
 #'
 #' \code{vf} displays a data frame using the View function but allows conditions
