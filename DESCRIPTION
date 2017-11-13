@@ -7,6 +7,7 @@ Depends:
   R (>= 3.2.0)
 Imports:
   broom (>= 0.4.0),
+  forcats(>= 0.2.0),
   sandwich (>= 2.3-4),
   lmtest(>= 0.9-35),
   dplyr(>= 0.7.0),
